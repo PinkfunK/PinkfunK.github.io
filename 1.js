@@ -1,0 +1,38 @@
+function deepCopy(src) {
+  var r;
+  //拷贝是一个对象的时候
+  if (typeof src === 'object') {
+    //拷贝的是一个数组
+    if (Array.isArray(src)) {
+      r = [];
+      for (var key in src) {
+        r.push(deepCopy(src[key]));
+      }
+    } else if (src === null || src.constructor === RegExp) {
+      //判断是一个null或者RegExp格式
+      r = src;
+    } else {
+      //判断是一个对象的时候
+      r = {};
+      for (var key in src) {
+        r[key] = deepCopy(src[key]);
+      }
+    }
+
+  } else {
+    r = src;
+  }
+  return r;
+}
+// var obj = undefined;
+// var obj=null;
+// var obj = true;
+// var obj=[1,2,3];
+// var obj = {a:1,b:2}
+var obj = {
+  a: 1,
+  b: false,
+  c: null,
+  d: [1, 2, 3]
+}
+console.log(deepCopy(obj));
